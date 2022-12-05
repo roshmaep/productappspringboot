@@ -1,5 +1,6 @@
 package com.example.productapp_backend.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,9 @@ public class ProductController {
     @PostMapping("edit")
     public String Productedit(){
         return "welcome to product edit page";
+    }
+    @GetMapping("view")
+    public String Productview(){
+        return "welcome to product view";
     }
 }
