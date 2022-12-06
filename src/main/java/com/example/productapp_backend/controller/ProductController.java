@@ -1,33 +1,36 @@
 package com.example.productapp_backend.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.productapp_backend.dao.ProductDao;
+import com.example.productapp_backend.model.Products;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
-    @PostMapping("/")
-    public String Homepage(){
-        return "welcome to product page";
+    @Autowired
+    private ProductDao dao;
+    @CrossOrigin(origins = "*")
+
+    @PostMapping(path = "add",consumes = "application/json",produces = "application/json")
+    public String ProductAdd(@RequestBody Products p){
+        System.out.println(p.getBrand().toString());
+        System.out.println(p.getDistributor().toString());
+        System.out.println(p.getExpdate().toString());
+        System.out.println(p.getMandate().toString());
+        System.out.println(p.getPrice().toString());
+        System.out.println(p.getProductname().toString());
+        System.out.println(p.getSellername().toString());
+        System.out.println(p.getProductcode());
+        dao.save(p);
+        return " product added successfully";
     }
-    @PostMapping("add")
-    public String Productadd(){
-        return "welcome to product add page";
-    }
-    @PostMapping("search")
-    public String Productsearch(){
-        return "welcome to product search page";
-    }
-    @PostMapping("edit")
-    public String Productedit(){
-        return "welcome to product edit page";
-    }
+@CrossOrigin(origins = "*")
     @GetMapping("view")
-    public String Productview(){
-        return "welcome to product view";
+    public List <Products> ProductView()
+    {
+        return (List<Products>) dao.findAll();
     }
-    @PostMapping("delete")
-    public String Productdelete(){
-        return "welcome to product delete";
-    }
+
 }
